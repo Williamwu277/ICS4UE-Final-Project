@@ -58,8 +58,9 @@ public abstract class Unit extends GameObject{
         this.healthBar.setHealth(health);
     }
 
-    public void drawHealthBar(Graphics g){
-        this.healthBar.draw(g, this.x, this.y);
+    public ArrayList<String> drawHealthBar(){
+        ArrayList<String> output = this.healthBar.draw(this.x, this.y);
+        return output;
     }
     
 }

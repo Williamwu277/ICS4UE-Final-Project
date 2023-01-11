@@ -43,9 +43,10 @@ public abstract class Soldier extends Unit{
     }
 
     @Override
-    public void draw(Graphics g){
-        g.setColor(Color.PINK);
-        g.fillRect(this.x, this.y, this.width, this.height);
+    public ArrayList<String> draw(){
+        ArrayList<String> output = new ArrayList<String>();
+        output.add(Const.BOX_CODE + " " + this.x + " " + this.y + " " + this.width + " " + this.height + " PINK");
+        return output;
     }
     
 }

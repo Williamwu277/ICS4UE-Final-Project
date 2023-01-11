@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.*;
 
 public class HealthBar {
 
@@ -14,11 +15,11 @@ public class HealthBar {
         this.currentHealth = maxHealth;
     }
 
-    public void draw(Graphics g, int x, int y){
-        g.setColor(Color.RED);
-        g.fillRect(x, y-this.height, this.width, this.height);
-        g.setColor(Color.GREEN);
-        g.fillRect(x, y-this.height, (int)(this.width * (double)this.currentHealth / this.maxHealth), this.height);
+    public ArrayList<String> draw(int x, int y){
+        ArrayList<String> output = new ArrayList<String>();
+        output.add(Const.BOX_CODE + " " + x + " " + (y-this.height) + " " + this.width + " " + this.height + " RED");
+        output.add(Const.BOX_CODE + " " + x + " " + (y-this.height) + " " + ((int)(this.width * (double)this.currentHealth / this.maxHealth))+ " " + this.height + " GREEN");
+        return output;
     }
 
     public void setHealth(int health){

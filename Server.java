@@ -1,8 +1,4 @@
 import java.net.*;
-import java.util.*;
-
-// TODO LIST:
-// - REMEMBER TO FIX IMPORTS TO BE PROPER
 
 public class Server {
     public static final int PORT = 6969;    

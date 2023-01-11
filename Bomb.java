@@ -34,14 +34,15 @@ public class Bomb extends Projectile{
     }
 
     @Override
-    public void draw(Graphics g){
-        g.setColor(Color.BLACK);
+    public ArrayList<String> draw(){
+        ArrayList<String> output = new ArrayList<String>();
         if(!this.explosion){
-            g.fillRect(this.x, this.y, this.width, this.height);
+            output.add(Const.BOX_CODE + " " + this.x + " " + this.y + " " + this.width + " " + this.height + " BLACK");
         }else{
             int explosionSize = this.explosionRadius * 2;
-            g.fillRect(this.x - explosionSize / 2, this.y - explosionSize / 2, explosionSize, explosionSize);
+            output.add(Const.BOX_CODE + " " + (this.x - explosionSize / 2) + " " + (this.y - explosionSize / 2) + " " + explosionSize + " " + explosionSize + " PINK");
         }
+        return output;
     }
     
 }

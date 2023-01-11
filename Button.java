@@ -1,51 +1,37 @@
 import java.awt.*;
+import java.util.*;
 
-public class Button extends Thread{
+public class Button{
     
     private int x;
     private int y;
     private int width;
     private int height;
-    private boolean threadAlive;
     private boolean buttonClicked;
     private boolean buttonHeld;
-    private InputListener input;
+    private String id;
 
-    public Button(InputListener input, int x, int y, int width, int height){
+    public Button(String id, int x, int y, int width, int height){
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.input = input;
-        this.threadAlive = true;
-        this.start();
+        this.id = id;
     }
 
-    @Override
-    public void run(){
-        while(this.threadAlive){
-            if(x <= input.getX() && input.getX() <= x+width && y <= input.getY() && input.getY() <= y+height && input.isClicked()){
-                if(!this.buttonClicked && !this.buttonHeld){
-                    this.buttonClicked = true;
-                }
-                this.buttonHeld = true;
-            }else{
-                this.buttonHeld = false;
+    public void update(int mouseX, int mouseY, boolean mouseClicked){
+        if(this.x <= mouseX && mouseX <= x+width && y <= mouseY && mouseY <= y+height && mouseClicked){
+            if(!this.buttonClicked && !this.buttonHeld){
+                this.buttonClicked = true;
             }
-            this.pause();
+            this.buttonHeld = true;
+        }else{
+            this.buttonHeld = false;
         }
     }
 
-    public void kill(){
-        this.threadAlive = false;
-    }
-
-    public void pause(){
-        try{
-            Thread.sleep(Const.PAUSE);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
+    public void update(InputListener input){
+        this.update(input.getX(), input.getY(), input.isClicked());
     }
 
     public boolean isClicked(){
@@ -56,7 +42,17 @@ public class Button extends Thread{
 
     public void draw(Graphics g){
         g.setColor(Color.PINK);
-        g.fillRect(x, y, width, height);
+        g.fillRect(this.x, this.y, this.width, this.height);
+    }
+
+    public ArrayList<String> getData(){
+        ArrayList<String> output = new ArrayList<>();
+        output.add(Const.BOX_CODE + " " + this.x + " " + this.y + " " + this.width + " " + this.height + " PINK");
+        return output;
+    }
+
+    public String getId(){
+        return this.id;
     }
 
 }

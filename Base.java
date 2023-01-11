@@ -19,9 +19,10 @@ public class Base extends Unit{
     }
 
     @Override
-    public void draw(Graphics g){
-        g.setColor(Color.YELLOW);
-        g.fillRect(this.x, this.y, this.width, this.height);
+    public ArrayList<String> draw(){
+        ArrayList<String> output = new ArrayList<String>();
+        output.add(Const.BOX_CODE + " " + this.x + " " + this.y + " " + this.width + " " + this.height + " YELLOW");
+        return output;
     }
 
     public void setGold(int gold){

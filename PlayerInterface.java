@@ -28,7 +28,8 @@ public class PlayerInterface{
         this.gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         this.gameFrame.setResizable(false); 
         this.gamePanel.addMouseMotionListener(this.input);   
-        this.gamePanel.addMouseListener(this.input);      
+        this.gamePanel.addMouseListener(this.input);    
+        this.gamePanel.addKeyListener(this.input);  
         this.gameFrame.add(gamePanel);  
         this.gameFrame.setVisible(true);     
     }   
@@ -36,7 +37,13 @@ public class PlayerInterface{
     public void runGameLoop(){
         while(true){
             if(this.currentState.equals("Menu") && this.screen.isTransitioning()){
-                this.screen = new GameScreen(this.input);
+                StartScreen current = (StartScreen)this.screen;
+                this.screen = new LobbyScreen(this.input, current.getSocket(), current.getReader(), current.getWriter());
+                this.gamePanel.setScreen(this.screen);
+                this.currentState = "Queue";
+            }else if(this.currentState.equals("Queue") && this.screen.isTransitioning()){
+                LobbyScreen current = (LobbyScreen)this.screen;
+                this.screen = new GameScreen(this.input, current.getSocket(), current.getReader(), current.getWriter());
                 this.gamePanel.setScreen(this.screen);
                 this.currentState = "Game";
             }

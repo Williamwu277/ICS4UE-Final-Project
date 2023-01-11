@@ -39,9 +39,10 @@ public class Projectile extends GameObject{
     }
 
     @Override
-    public void draw(Graphics g){
-        g.setColor(Color.BLACK);
-        g.fillRect(this.x, this.y, this.width, this.height);
+    public ArrayList<String> draw(){
+        ArrayList<String> output = new ArrayList<String>();
+        output.add(Const.BOX_CODE + " " + this.x + " " + this.y + " " + this.width + " " + this.height + " BLACK");
+        return output;
     }
 
     public boolean hasHit(){

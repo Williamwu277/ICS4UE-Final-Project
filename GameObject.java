@@ -21,7 +21,7 @@ public abstract class GameObject {
 
     public abstract void update(ArrayList<Unit> gameObjects);
 
-    public abstract void draw(Graphics g);
+    public abstract ArrayList<String> draw();
 
     public int getId(){
         return this.teamId;
