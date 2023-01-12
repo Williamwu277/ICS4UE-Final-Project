@@ -4,7 +4,8 @@ import java.io.*;
 
 public class StartScreen implements Screen{
 
-    private final String IP = "192.168.0.112";
+    //private final String IP = "192.168.0.112";
+    private final String IP = "127.0.0.1";
     private final int PORT = 6969;
 
     private InputListener input;
@@ -29,6 +30,9 @@ public class StartScreen implements Screen{
     @Override
     public boolean isTransitioning(){
         boolean clicked = this.queueButton.isClicked();
+        if(this.inputBox.getInput().length() == 0){
+            clicked = false;
+        }
         if(clicked){
             try{
                 this.clientSocket = new Socket(IP, PORT);

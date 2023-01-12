@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.Dimension;
 
 public class PlayerInterface{
 
@@ -25,6 +26,7 @@ public class PlayerInterface{
     
     public void setUp(){
         this.gameFrame.setSize(Const.WIDTH,Const.HEIGHT+25); 
+        this.gameFrame.setMinimumSize(new Dimension(Const.WIDTH, Const.HEIGHT));
         this.gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         this.gameFrame.setResizable(false); 
         this.gamePanel.addMouseMotionListener(this.input);   
@@ -46,6 +48,15 @@ public class PlayerInterface{
                 this.screen = new GameScreen(this.input, current.getSocket(), current.getReader(), current.getWriter());
                 this.gamePanel.setScreen(this.screen);
                 this.currentState = "Game";
+            }else if(this.currentState.equals("Game") && this.screen.isTransitioning()){
+                GameScreen current = (GameScreen)this.screen;
+                this.screen = new EndScreen(this.input, current.getWinner());
+                this.gamePanel.setScreen(this.screen);
+                this.currentState = "End";
+            }else if(this.currentState.equals("End") && this.screen.isTransitioning()){
+                this.screen = new StartScreen(this.input);
+                this.gamePanel.setScreen(this.screen);
+                this.currentState = "Menu";
             }
             this.screen.update();
             this.gameFrame.repaint();

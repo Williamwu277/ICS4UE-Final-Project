@@ -12,6 +12,7 @@ public class GameScreen implements Screen{
     private ArrayList<String> toDraw;
 
     private boolean gameOver;
+    private boolean gameWon;
 
     public GameScreen(InputListener input, Socket clientSocket, BufferedReader clientIn, PrintWriter clientOut){
         this.input = input;
@@ -33,9 +34,19 @@ public class GameScreen implements Screen{
             while(in.equals("")){
                 in = this.clientIn.readLine();
             }
-            int inputSize = Integer.parseInt(in);
-            for(int i=0; i<inputSize; i++){
-                this.toDraw.add(this.clientIn.readLine().strip());
+            if(in.trim().equals("WIN")){
+                this.gameOver = true;
+                this.gameWon = true;
+                this.close();
+            }else if(in.trim().equals("LOSE")){
+                this.gameOver = true;
+                this.gameWon = false;
+                this.close();
+            }else{
+                int inputSize = Integer.parseInt(in);
+                for(int i=0; i<inputSize; i++){
+                    this.toDraw.add(this.clientIn.readLine().strip());
+                }
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -56,6 +67,10 @@ public class GameScreen implements Screen{
     @Override
     public boolean isTransitioning(){
         return this.gameOver;
+    }
+
+    public boolean getWinner(){
+        return this.gameWon;
     }
 
     @Override
@@ -84,6 +99,13 @@ public class GameScreen implements Screen{
 
     @Override
     public void close(){
+        try{
+            this.clientIn.close();
+            this.clientOut.close();
+            this.clientSocket.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
     
 }

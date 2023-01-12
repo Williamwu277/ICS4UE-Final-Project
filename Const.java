@@ -29,6 +29,20 @@ public class Const {
         put("GRAY", Color.GRAY);
         put("BLUE", Color.BLUE);
     }};
+    public static final HashMap<String, Integer> COSTS = new HashMap<>(){{
+        put("FootSoldier", 25);
+        put("Archer", 40);
+        put("Tanker", 150);
+        put("Knight", 150);
+        put("Healer", 75);
+        put("SiegeEngine", 500);
+        put("Dwelling", 150);
+        put("ArcherTower", 300);
+        put("Wall", 250);
+        put("CannonTower", 350);
+        put("BombTower", 400);
+        put("BallistaTower", 500);
+    }};
     public static final int BOX_CODE = 1;
     public static final int STRING_CODE = 2;
 

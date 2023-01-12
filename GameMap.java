@@ -32,7 +32,7 @@ public class GameMap {
         this.gameObjects.add(this.playerTwoBase);
     }
 
-    public void update(){
+    public int update(){
         for(Projectile nextProjectile: this.projectiles){
             nextProjectile.update(this.gameObjects);
         }
@@ -57,6 +57,13 @@ public class GameMap {
             if(this.projectiles.get(i).hasHit()){
                 this.projectiles.remove(i);
             }
+        }
+        if(this.playerOneBase.getHealth() <= 0){
+            return -1;
+        }else if(this.playerTwoBase.getHealth() <= 0){
+            return 1;
+        }else{
+            return 0;
         }
     }
 

@@ -8,6 +8,7 @@ public class Base extends Unit{
     
     public Base(int teamId, int x, int y, int width, int height, int maxHealth){
         super(teamId, x, y, width, height, maxHealth);
+        this.gold = Const.BASE_GOLD;
     }
 
     @Override

@@ -65,6 +65,15 @@ public class PlayerConnection {
         }
     }
 
+    public void endGame(int result){
+        if(result == this.currentTeam){
+            this.output.println("WIN");
+        }else{
+            this.output.println("LOSE");
+        }
+        this.output.flush();
+    }
+
     public String readName(){
         String name = "";
         try{

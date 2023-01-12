@@ -74,7 +74,7 @@ public class MenuBar {
                 newPurchase = new CannonTower(currentTeam, 0, 0);
             }else if(nextButton.getId().equals("BombTower")){
                 newPurchase = new BombTower(currentTeam, 0, 0);
-            }else if(nextButton.getId().equals("FootSoldier")){
+            }else if(nextButton.getId().equals("BallistaTower")){
                 newPurchase = new BallistaTower(currentTeam, 0, 0);
             }
         }
@@ -89,21 +89,20 @@ public class MenuBar {
         }
         boolean mouseXPositionLegal = gameMap.getX() <= mouseX && mouseX <= gameMap.getX() + gameMap.getWidth() * Const.BLOCK_SIZE;
         boolean mouseYPositionLegal = gameMap.getY() <= mouseY && mouseY <= gameMap.getY() + gameMap.getHeight() * Const.BLOCK_SIZE;
-        if(mouseClicked && this.purchase != null && mouseXPositionLegal && mouseYPositionLegal){
+        if(mouseClicked && this.purchase != null && mouseXPositionLegal && mouseYPositionLegal && this.getBase(gameMap).getGold() >= Const.COSTS.get(this.purchase.getClass().getSimpleName())){
             this.purchase.setX((mouseX-gameMap.getX()) / Const.BLOCK_SIZE * Const.BLOCK_SIZE + gameMap.getX());
             this.purchase.setY((mouseY-gameMap.getY()) / Const.BLOCK_SIZE * Const.BLOCK_SIZE + gameMap.getY());
-            gameMap.addUnit(this.purchase);
+            boolean added = gameMap.addUnit(this.purchase);
             try{
                 this.purchase = this.purchase.getClass().getConstructor(int.class, int.class, int.class).newInstance(currentTeam, 0, 0);
             } catch(Exception E){
                 E.printStackTrace();
             }
+            if(added){
+                this.getBase(gameMap).setGold(this.getBase(gameMap).getGold() - Const.COSTS.get(this.purchase.getClass().getSimpleName()));
+            }
         }
-        if(this.currentTeam == 1) {
-            this.playerGold = gameMap.getPlayerOneBase().getGold();
-        }else{
-            this.playerGold = gameMap.getPlayerTwoBase().getGold();
-        }
+        this.playerGold = this.getBase(gameMap).getGold();
     }
 
     public ArrayList<String> draw(){
@@ -116,6 +115,14 @@ public class MenuBar {
         String playerGold = Integer.toString(this.playerGold);
         output.add(Const.STRING_CODE + " " + (this.x + MENU_WIDTH / 2) + " " + GOLD_Y + " PINK " + playerGold);
         return output;
+    }
+
+    public Base getBase(GameMap gameMap){
+        if(this.currentTeam == 1) {
+            return gameMap.getPlayerOneBase();
+        }else{
+            return gameMap.getPlayerTwoBase();
+        }
     }
 
     public boolean getPurchasePending(){

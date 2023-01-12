@@ -26,7 +26,12 @@ public class GameThread implements Runnable{
         while(this.threadAlive){
             this.playerOne.update(this.gameMap);
             this.playerTwo.update(this.gameMap);
-            this.gameMap.update();
+            int result = this.gameMap.update();
+            if(result != 0){
+                this.playerOne.endGame(result);
+                this.playerTwo.endGame(result);
+                this.kill();
+            }
             this.pause();
         }
     }
