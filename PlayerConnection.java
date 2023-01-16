@@ -32,7 +32,7 @@ public class PlayerConnection {
 
     public void sendOutput(GameMap gameMap){
         ArrayList<String> out = new ArrayList<>();
-        out.addAll(gameMap.draw(this.menu.getPurchasePending()));
+        out.addAll(gameMap.draw(this.menu.getPurchasePending(), this.currentTeam));
         out.addAll(this.menu.draw());
         this.output.println(out.size());
         for(int i=0; i<out.size(); i++){

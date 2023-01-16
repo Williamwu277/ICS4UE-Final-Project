@@ -1,4 +1,3 @@
-import java.awt.*;
 import java.util.*;
 
 public class MenuBar {
@@ -89,9 +88,11 @@ public class MenuBar {
         }
         boolean mouseXPositionLegal = gameMap.getX() <= mouseX && mouseX <= gameMap.getX() + gameMap.getWidth() * Const.BLOCK_SIZE;
         boolean mouseYPositionLegal = gameMap.getY() <= mouseY && mouseY <= gameMap.getY() + gameMap.getHeight() * Const.BLOCK_SIZE;
-        if(mouseClicked && this.purchase != null && mouseXPositionLegal && mouseYPositionLegal && this.getBase(gameMap).getGold() >= Const.COSTS.get(this.purchase.getClass().getSimpleName())){
-            this.purchase.setX((mouseX-gameMap.getX()) / Const.BLOCK_SIZE * Const.BLOCK_SIZE + gameMap.getX());
-            this.purchase.setY((mouseY-gameMap.getY()) / Const.BLOCK_SIZE * Const.BLOCK_SIZE + gameMap.getY());
+        int newX = (mouseX-gameMap.getX()) / Const.BLOCK_SIZE * Const.BLOCK_SIZE + gameMap.getX();
+        int newY = (mouseY-gameMap.getY()) / Const.BLOCK_SIZE * Const.BLOCK_SIZE + gameMap.getY();
+        if(mouseClicked && this.purchase != null && mouseXPositionLegal && mouseYPositionLegal && this.getBase(gameMap).getGold() >= Const.COSTS.get(this.purchase.getClass().getSimpleName()) && GameMap.onCorrectSide(this.currentTeam, newX, newY, this.purchase.getWidth(), this.purchase.getHeight())){
+            this.purchase.setX(newX);
+            this.purchase.setY(newY);
             boolean added = gameMap.addUnit(this.purchase);
             try{
                 this.purchase = this.purchase.getClass().getConstructor(int.class, int.class, int.class).newInstance(currentTeam, 0, 0);
@@ -112,10 +113,11 @@ public class MenuBar {
             output.addAll(nextButton.getData());
         }
         // draw gold amounts
-        String playerGold = Integer.toString(this.playerGold);
+        String playerGold = "Gold: " + Integer.toString(this.playerGold);
         output.add(Const.STRING_CODE + " " + (this.x + MENU_WIDTH / 2) + " " + GOLD_Y + " PINK " + playerGold);
         return output;
     }
+
 
     public Base getBase(GameMap gameMap){
         if(this.currentTeam == 1) {

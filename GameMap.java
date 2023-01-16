@@ -2,6 +2,15 @@ import java.util.*;
 
 public class GameMap {
 
+    public static boolean onCorrectSide(int currentTeam, int x, int y, int width, int height){
+        if(currentTeam == 1 && y + height <= Const.MAP_HEIGHT * Const.BLOCK_SIZE / 2){
+            return true;
+        }else if(currentTeam == -1 && y >= Const.MAP_HEIGHT * Const.BLOCK_SIZE / 2){
+            return true;
+        }
+        return false;
+    }
+
     private int x;
     private int y;
     private int width;
@@ -67,13 +76,13 @@ public class GameMap {
         }
     }
 
-    public ArrayList<String> draw(boolean purchasePending){
+    public ArrayList<String> draw(boolean purchasePending, int teamId){
         ArrayList<String> output = new ArrayList<>();
         output.add(Const.BOX_CODE + " " + this.x + " " + this.y + " " + (Const.MAP_WIDTH * this.blockSize) + " " + (Const.MAP_HEIGHT * this.blockSize) + " GRAY");
         if(purchasePending){
             for(int i=0; i<this.width; i++){
                 for(int j=0; j<this.height-this.playerOneBase.getHeight()/Const.BLOCK_SIZE; j++){
-                    if((i+j)%2==0){
+                    if((i+j)%2==0 && GameMap.onCorrectSide(teamId, this.x+i*this.blockSize, this.playerOneBase.getHeight()+this.y+j*this.blockSize, this.blockSize, this.blockSize)){
                         output.add(Const.BOX_CODE + " " + (this.x+i*this.blockSize) + " " + (this.playerOneBase.getHeight()+this.y+j*this.blockSize) + " " + this.blockSize + " " + this.blockSize + " BLUE");
                     }
                 }
@@ -125,10 +134,6 @@ public class GameMap {
     public Base getPlayerTwoBase(){
         return this.playerTwoBase;
     }
-
-    //public void setPurchasePending(boolean purchasePending){
-    //    this.purchasePending = purchasePending;
-    //}
 
     public boolean addUnit(Unit newUnit){
         if(newUnit.getX() + newUnit.getWidth() > this.x + this.width * Const.BLOCK_SIZE || 

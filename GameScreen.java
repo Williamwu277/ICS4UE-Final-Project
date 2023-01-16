@@ -78,6 +78,7 @@ public class GameScreen implements Screen{
         for(String nextLine: this.toDraw){
             String[] separation = nextLine.split(" ");
             if(Integer.parseInt(separation[0]) == Const.BOX_CODE){
+                //String[] messageData = separation[1].split(" ");
                 int x = Integer.parseInt(separation[1]);
                 int y = Integer.parseInt(separation[2]);
                 int width = Integer.parseInt(separation[3]);
@@ -86,6 +87,7 @@ public class GameScreen implements Screen{
                 g.setColor(color);
                 g.fillRect(x, y, width, height);
             }else{
+                //String[] messageData = separation[1].split(" ", 4);
                 int x = Integer.parseInt(separation[1]);
                 int y = Integer.parseInt(separation[2]);
                 Color color = Const.COLORS.get(separation[3]);

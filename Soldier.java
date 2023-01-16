@@ -1,5 +1,4 @@
 import java.util.*;
-import java.awt.*;
 
 public abstract class Soldier extends Unit{
 
