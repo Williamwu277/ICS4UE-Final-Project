@@ -7,7 +7,7 @@ public class Archer extends Soldier implements RangedAttacker{
     protected Projectile newProjectile;
 
     public Archer(int teamId, int x, int y){
-        super(teamId, x, y, Const.BLOCK_SIZE, Const.BLOCK_SIZE, 45, 90, 10, 75, 3);
+        super(teamId, x, y, Const.BLOCK_SIZE, Const.BLOCK_SIZE, 45, 90, 10, 75, 3, "Archer");
         this.projectileSize = 5;
         this.projectileSpeed = 15;
     }

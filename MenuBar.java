@@ -8,6 +8,11 @@ public class MenuBar {
     private static final int UNIT_BUTTON_Y = 580;
     private static final int TOWER_BUTTON_Y = 410;
     private static final int GOLD_Y = 25;
+    private static final int UNIT_NAME_Y = 75;
+    private static final int UNIT_IMAGE_Y = 100;
+    private static final int UNIT_IMAGE_WIDTH = 150;
+    private static final int UNIT_IMAGE_HEIGHT = 150;
+    private static final int UNIT_DESCRIPTION_Y = 275;
 
     private int x;
     private int y;
@@ -30,19 +35,19 @@ public class MenuBar {
         this.buttons = new ArrayList<>();
         int xGap = (MENU_WIDTH - BUTTONS_PER_ROW * BUTTON_SIZE) / (BUTTONS_PER_ROW + 1);
 
-        this.buttons.add(new Button("FootSoldier", this.x+xGap, UNIT_BUTTON_Y, BUTTON_SIZE, BUTTON_SIZE));
-        this.buttons.add(new Button("Archer", this.x+2*xGap+BUTTON_SIZE, UNIT_BUTTON_Y, BUTTON_SIZE, BUTTON_SIZE));
-        this.buttons.add(new Button("Tanker", this.x+3*xGap+BUTTON_SIZE*2, UNIT_BUTTON_Y, BUTTON_SIZE, BUTTON_SIZE));
-        this.buttons.add(new Button("Knight", this.x+xGap, UNIT_BUTTON_Y+BUTTON_SIZE+xGap, BUTTON_SIZE, BUTTON_SIZE));
-        this.buttons.add(new Button("Healer", this.x+2*xGap+BUTTON_SIZE, UNIT_BUTTON_Y+BUTTON_SIZE+xGap, BUTTON_SIZE, BUTTON_SIZE));
-        this.buttons.add(new Button("SiegeEngine", this.x+3*xGap+BUTTON_SIZE*2, UNIT_BUTTON_Y+BUTTON_SIZE+xGap, BUTTON_SIZE, BUTTON_SIZE));
+        this.buttons.add(new Button("FootSoldier", this.x+xGap, UNIT_BUTTON_Y, BUTTON_SIZE, BUTTON_SIZE, "FootSoldier"));
+        this.buttons.add(new Button("Archer", this.x+2*xGap+BUTTON_SIZE, UNIT_BUTTON_Y, BUTTON_SIZE, BUTTON_SIZE, "Archer"));
+        this.buttons.add(new Button("Tanker", this.x+3*xGap+BUTTON_SIZE*2, UNIT_BUTTON_Y, BUTTON_SIZE, BUTTON_SIZE, "Tanker"));
+        this.buttons.add(new Button("Knight", this.x+xGap, UNIT_BUTTON_Y+BUTTON_SIZE+xGap, BUTTON_SIZE, BUTTON_SIZE, "Knight"));
+        this.buttons.add(new Button("Healer", this.x+2*xGap+BUTTON_SIZE, UNIT_BUTTON_Y+BUTTON_SIZE+xGap, BUTTON_SIZE, BUTTON_SIZE, "Healer"));
+        this.buttons.add(new Button("SiegeEngine", this.x+3*xGap+BUTTON_SIZE*2, UNIT_BUTTON_Y+BUTTON_SIZE+xGap, BUTTON_SIZE, BUTTON_SIZE, "SiegeEngine"));
 
-        this.buttons.add(new Button("Dwelling", this.x+xGap, TOWER_BUTTON_Y, BUTTON_SIZE, BUTTON_SIZE));
-        this.buttons.add(new Button("ArcherTower", this.x+2*xGap+BUTTON_SIZE, TOWER_BUTTON_Y, BUTTON_SIZE, BUTTON_SIZE));
-        this.buttons.add(new Button("Wall", this.x+3*xGap+BUTTON_SIZE*2, TOWER_BUTTON_Y, BUTTON_SIZE, BUTTON_SIZE));
-        this.buttons.add(new Button("CannonTower", this.x+xGap, TOWER_BUTTON_Y+BUTTON_SIZE+xGap, BUTTON_SIZE, BUTTON_SIZE));
-        this.buttons.add(new Button("BombTower", this.x+2*xGap+BUTTON_SIZE, TOWER_BUTTON_Y+BUTTON_SIZE+xGap, BUTTON_SIZE, BUTTON_SIZE));
-        this.buttons.add(new Button("BallistaTower", this.x+3*xGap+BUTTON_SIZE*2, TOWER_BUTTON_Y+BUTTON_SIZE+xGap, BUTTON_SIZE, BUTTON_SIZE));
+        this.buttons.add(new Button("Dwelling", this.x+xGap, TOWER_BUTTON_Y, BUTTON_SIZE, BUTTON_SIZE, "Dwelling"));
+        this.buttons.add(new Button("ArcherTower", this.x+2*xGap+BUTTON_SIZE, TOWER_BUTTON_Y, BUTTON_SIZE, BUTTON_SIZE, "ArcherTower"));
+        this.buttons.add(new Button("Wall", this.x+3*xGap+BUTTON_SIZE*2, TOWER_BUTTON_Y, BUTTON_SIZE, BUTTON_SIZE, "Wall"));
+        this.buttons.add(new Button("CannonTower", this.x+xGap, TOWER_BUTTON_Y+BUTTON_SIZE+xGap, BUTTON_SIZE, BUTTON_SIZE, "CannonTower"));
+        this.buttons.add(new Button("BombTower", this.x+2*xGap+BUTTON_SIZE, TOWER_BUTTON_Y+BUTTON_SIZE+xGap, BUTTON_SIZE, BUTTON_SIZE, "BombTower"));
+        this.buttons.add(new Button("BallistaTower", this.x+3*xGap+BUTTON_SIZE*2, TOWER_BUTTON_Y+BUTTON_SIZE+xGap, BUTTON_SIZE, BUTTON_SIZE, "BallistaTower"));
     }
 
     public void update(GameMap gameMap, int mouseX, int mouseY, boolean mouseClicked){
@@ -110,11 +115,17 @@ public class MenuBar {
         ArrayList<String> output = new ArrayList<>();
         output.add(Const.BOX_CODE + " " + this.x + " " + this.y + " " + this.width + " " + this.height + " BLACK");
         for(Button nextButton: this.buttons){
-            output.addAll(nextButton.getData());
+            output.addAll(nextButton.draw());
         }
         // draw gold amounts
         String playerGold = "Gold: " + Integer.toString(this.playerGold);
-        output.add(Const.STRING_CODE + " " + (this.x + MENU_WIDTH / 2) + " " + GOLD_Y + " PINK " + playerGold);
+        output.add(Const.STRING_CODE + " " + (this.x + MENU_WIDTH / 2) + " " + GOLD_Y + " PINK LARGE " + playerGold);
+        // draw unit description
+        if(this.purchase != null){
+            output.add(Const.STRING_CODE + " " + (this.x + MENU_WIDTH / 2) + " " + MenuBar.UNIT_NAME_Y + " PINK LARGE " + this.purchase.getClass().getSimpleName());
+            output.add(this.purchase.getClass().getSimpleName() + " " + (this.x + (MenuBar.MENU_WIDTH - MenuBar.UNIT_IMAGE_WIDTH) / 2) + " " + MenuBar.UNIT_IMAGE_Y + " " + MenuBar.UNIT_IMAGE_WIDTH + " " + MenuBar.UNIT_IMAGE_HEIGHT + " Y");
+            output.add(Const.STRING_CODE + " " + (this.x + MENU_WIDTH / 2) + " " + MenuBar.UNIT_DESCRIPTION_Y + " PINK SMALL " + Const.UNIT_DESCRIPTION.get(this.purchase.getClass().getSimpleName()));
+        }
         return output;
     }
 

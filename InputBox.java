@@ -2,6 +2,7 @@ import java.awt.*;
 
 public class InputBox {
     
+    private static final String LEGAL_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
     private InputListener input;
     char[] keys;
     private int x;
@@ -10,8 +11,9 @@ public class InputBox {
     private int height;
     private int keyLimit;
     private int cursor;
+    private String sprite;
 
-    public InputBox(InputListener input, int x, int y, int width, int height, int keyLimit){
+    public InputBox(InputListener input, int x, int y, int width, int height, int keyLimit, String sprite){
         this.input = input;
         this.x = x;
         this.y = y;
@@ -19,6 +21,7 @@ public class InputBox {
         this.height = height;
         this.keyLimit = keyLimit;
         this.keys = new char[this.keyLimit];
+        this.sprite = sprite;
     }
 
     public void update(){
@@ -29,8 +32,8 @@ public class InputBox {
                 this.keys[this.cursor] = Character.MIN_VALUE;
             }
         }else if(key != Character.MIN_VALUE && this.cursor + 1 <= this.keyLimit){
-            if(key == ' '){
-                key = '-';
+            if(!InputBox.LEGAL_CHARACTERS.contains(Character.toString(key))){
+                key = '_';
             }
             this.keys[this.cursor] = key;
             this.cursor ++;
@@ -38,12 +41,15 @@ public class InputBox {
     }
 
     public void draw(Graphics g){
-        g.setColor(Color.BLACK);
-        g.fillRect(this.x, this.y, this.width, this.height);
-        g.setColor(Color.WHITE);
-        String output = this.getInput();
-        int stringWidth = g.getFontMetrics().stringWidth(output);
-        g.drawString(output, this.x + this.width/2 - stringWidth/2, this.y + this.height/2);
+        g.drawImage(Const.IMAGES.get(this.sprite), this.x, this.y, this.width, this.height, null);
+        if(this.cursor == 0){
+            g.setColor(Color.DARK_GRAY);
+            g.drawString("Nickname", this.x+5, this.y+this.height/2+5);
+        }else{
+            g.setColor(Color.WHITE);
+            String output = this.getInput();
+            g.drawString(output, this.x+5, this.y+this.height/2+5);
+        }
     }
 
     public String getInput(){

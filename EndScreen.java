@@ -9,7 +9,7 @@ public class EndScreen implements Screen{
     public EndScreen(InputListener input, boolean won){
         this.input = input;
         this.won = won;
-        this.continueButton = new Button("Queue", Const.WIDTH/2-25, Const.HEIGHT/2-25, 50, 50);
+        this.continueButton = new Button("Queue", Const.WIDTH/2-Const.BUTTON_WIDTH/2, Const.HEIGHT/2-Const.BUTTON_HEIGHT/2, Const.BUTTON_WIDTH, Const.BUTTON_HEIGHT, "MenuButton");
     }
 
     @Override
@@ -24,13 +24,20 @@ public class EndScreen implements Screen{
 
     @Override
     public void draw(Graphics g){
-        this.continueButton.draw(g);
         g.setColor(Color.BLACK);
+        g.fillRect(0, 0, Const.WIDTH, Const.HEIGHT);
+        this.continueButton.draw(g);
+        g.setFont(Const.EXTRA_LARGE_FONT);
+        String toDraw;
         if(this.won){
-            g.drawString("You Won!", Const.WIDTH/2, Const.HEIGHT/2-100);
+            g.setColor(Color.GREEN);
+            toDraw = "YOU WON";
         }else{
-            g.drawString("You Lost!", Const.WIDTH/2, Const.HEIGHT/2-100);
+            g.setColor(Color.RED);
+            toDraw = "YOU LOST";
         }
+        int width = g.getFontMetrics().stringWidth(toDraw);
+        g.drawString(toDraw, Const.WIDTH/2-width/2, Const.HEIGHT/2-Const.BUTTON_HEIGHT*2);
     }
 
     @Override

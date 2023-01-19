@@ -16,6 +16,7 @@ public class PlayerInterface{
     }
     
     public PlayerInterface(){
+        Const.load();
         this.input = new InputListener();
         this.screen = new StartScreen(this.input);
         this.currentState = "Menu";

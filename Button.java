@@ -10,13 +10,15 @@ public class Button{
     private boolean buttonClicked;
     private boolean buttonHeld;
     private String id;
+    private String sprite;
 
-    public Button(String id, int x, int y, int width, int height){
+    public Button(String id, int x, int y, int width, int height, String sprite){
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.id = id;
+        this.sprite = sprite;
     }
 
     public void update(int mouseX, int mouseY, boolean mouseClicked){
@@ -41,13 +43,15 @@ public class Button{
     }
 
     public void draw(Graphics g){
-        g.setColor(Color.PINK);
-        g.fillRect(this.x, this.y, this.width, this.height);
+        g.drawImage(Const.IMAGES.get(this.sprite), this.x, this.y, this.width, this.height, null);
     }
 
-    public ArrayList<String> getData(){
+    public ArrayList<String> draw(){
         ArrayList<String> output = new ArrayList<>();
         output.add(Const.BOX_CODE + " " + this.x + " " + this.y + " " + this.width + " " + this.height + " PINK");
+        if(this.sprite != null){
+            output.add(this.sprite + " " + (this.x+5) + " " + (this.y+5) + " " + (this.width-10) + " " + (this.height-10) + " Y");
+        }
         return output;
     }
 

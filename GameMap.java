@@ -78,12 +78,21 @@ public class GameMap {
 
     public ArrayList<String> draw(boolean purchasePending, int teamId){
         ArrayList<String> output = new ArrayList<>();
-        output.add(Const.BOX_CODE + " " + this.x + " " + this.y + " " + (Const.MAP_WIDTH * this.blockSize) + " " + (Const.MAP_HEIGHT * this.blockSize) + " GRAY");
-        if(purchasePending){
-            for(int i=0; i<this.width; i++){
-                for(int j=0; j<this.height-this.playerOneBase.getHeight()/Const.BLOCK_SIZE; j++){
-                    if((i+j)%2==0 && GameMap.onCorrectSide(teamId, this.x+i*this.blockSize, this.playerOneBase.getHeight()+this.y+j*this.blockSize, this.blockSize, this.blockSize)){
-                        output.add(Const.BOX_CODE + " " + (this.x+i*this.blockSize) + " " + (this.playerOneBase.getHeight()+this.y+j*this.blockSize) + " " + this.blockSize + " " + this.blockSize + " BLUE");
+        output.add(Const.BOX_CODE + " " + 0 + " " + 0 + " " + Const.WIDTH + " " + Const.HEIGHT + " DARKGRAY");
+
+        for(int i=0; i<this.width; i++){
+            for(int j=0; j<this.height-this.playerOneBase.getHeight()/Const.BLOCK_SIZE; j++){
+                if((i + j) % 2 == 0){
+                    if(purchasePending && GameMap.onCorrectSide(teamId, this.x+i*this.blockSize, this.playerOneBase.getHeight()+this.y+j*this.blockSize, this.blockSize, this.blockSize)){
+                        output.add(Const.BOX_CODE + " " + (this.x+i*this.blockSize) + " " + (this.playerOneBase.getHeight()+this.y+j*this.blockSize) + " " + this.blockSize + " " + this.blockSize + " LIGHTGREEN");
+                    }else{
+                        output.add(Const.BOX_CODE + " " + (this.x+i*this.blockSize) + " " + (this.playerOneBase.getHeight()+this.y+j*this.blockSize) + " " + this.blockSize + " " + this.blockSize + " GREEN2");
+                    }
+                }else{
+                    if(purchasePending && GameMap.onCorrectSide(teamId, this.x+i+this.blockSize, this.playerOneBase.getHeight()+this.y+j*this.blockSize, this.blockSize, this.blockSize)){
+                        output.add(Const.BOX_CODE + " " + (this.x+i*this.blockSize) + " " + (this.playerOneBase.getHeight()+this.y+j*this.blockSize) + " " + this.blockSize + " " + this.blockSize + " LIGHTGREEN2");
+                    }else{
+                        output.add(Const.BOX_CODE + " " + (this.x+i*this.blockSize) + " " + (this.playerOneBase.getHeight()+this.y+j*this.blockSize) + " " + this.blockSize + " " + this.blockSize + " GREEN3");
                     }
                 }
             }
@@ -106,8 +115,8 @@ public class GameMap {
         output.add(Const.BOX_CODE + " " + 0 + " " + 0 + " " + playerOneHealthPercentage + " " + Const.BASE_HEALTH_BAR_HEIGHT + " GREEN");
         output.add(Const.BOX_CODE + " " + 0 + " " + (Const.HEIGHT-Const.BASE_HEALTH_BAR_HEIGHT) + " " + playerTwoHealthPercentage + " " + Const.BASE_HEALTH_BAR_HEIGHT + " GREEN");
         // draw names
-        output.add(Const.STRING_CODE + " " + (Const.WIDTH*2/6) + " " + 15 + " BLACK " + this.firstName);
-        output.add(Const.STRING_CODE + " " + (Const.WIDTH*2/6) + " " + (Const.HEIGHT-Const.BASE_HEALTH_BAR_HEIGHT) + " BLACK " + this.secondName);
+        output.add(Const.STRING_CODE + " " + (Const.WIDTH*2/6) + " " + (this.y+5) + " BLACK LARGE " + this.firstName);
+        output.add(Const.STRING_CODE + " " + (Const.WIDTH*2/6) + " " + (Const.HEIGHT-Const.BASE_HEALTH_BAR_HEIGHT/2+5) + " BLACK LARGE " + this.secondName);
         return output;
     }
 

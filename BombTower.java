@@ -6,7 +6,7 @@ public class BombTower extends Tower{
     private int explosionDamage;
 
     public BombTower(int teamId, int x, int y){
-        super(teamId, x, y, Const.BLOCK_SIZE*3, 275, 120, 10, 150, 10, 10);
+        super(teamId, x, y, Const.BLOCK_SIZE*3, 275, 120, 10, 150, 10, 10, "BombTower");
         this.explosionRadius = 30;
         this.explosionDamage = 20;
     }

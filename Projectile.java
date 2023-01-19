@@ -8,8 +8,8 @@ public class Projectile extends GameObject{
     protected int damage;
     protected int movementCooldown;
 
-    public Projectile(int teamId, int x, int y, int size, int targetX, int targetY, int speed, int damage){
-        super(teamId, x-size/2, y-size/2, size, size);
+    public Projectile(int teamId, int x, int y, int size, int targetX, int targetY, int speed, int damage, String sprite){
+        super(teamId, x-size/2, y-size/2, size, size, sprite);
         int xMovement = targetX - x;
         int yMovement = targetY - y;
         int distance = (int)Math.sqrt(Math.pow(xMovement, 2) + Math.pow(yMovement, 2));
@@ -18,6 +18,10 @@ public class Projectile extends GameObject{
         this.run = (int)Math.round(scale * xMovement);
         this.duration = (int)(1 / scale) + 1;
         this.damage = damage;
+    }
+
+    public Projectile(int teamId, int x, int y, int size, int targetX, int targetY, int speed, int damage){
+        this(teamId, x, y, size, targetX, targetY, speed, damage, null);
     }
 
     @Override

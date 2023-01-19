@@ -9,14 +9,16 @@ public abstract class GameObject {
     protected int width;
     protected int height;
     protected Rectangle hitBox;
+    protected String sprite;
     
-    public GameObject(int teamId, int x, int y, int width, int height){
+    public GameObject(int teamId, int x, int y, int width, int height, String sprite){
         this.teamId = teamId;
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.hitBox = new Rectangle(x, y, this.width, this.height);
+        this.sprite = sprite;
     }
 
     public abstract void update(ArrayList<Unit> gameObjects);

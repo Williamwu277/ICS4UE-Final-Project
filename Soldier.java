@@ -5,8 +5,8 @@ public abstract class Soldier extends Unit{
     protected int movementSpeed;
     protected int movementCooldown;
 
-    public Soldier(int teamId, int x, int y, int width, int height, int maxHealth, int range, int damage, int attackSpeed, int movementSpeed){
-        super(teamId, x, y, width, height, maxHealth);
+    public Soldier(int teamId, int x, int y, int width, int height, int maxHealth, int range, int damage, int attackSpeed, int movementSpeed, String sprite){
+        super(teamId, x, y, width, height, maxHealth, sprite);
         this.range = range;
         this.damage = damage;
         this.attackSpeed = attackSpeed;
@@ -39,13 +39,6 @@ public abstract class Soldier extends Unit{
             this.hitBox.setLocation(this.x, this.y);
         }
         this.movementCooldown = (this.movementCooldown + 1) % this.movementSpeed;
-    }
-
-    @Override
-    public ArrayList<String> draw(){
-        ArrayList<String> output = new ArrayList<String>();
-        output.add(Const.BOX_CODE + " " + this.x + " " + this.y + " " + this.width + " " + this.height + " PINK");
-        return output;
     }
     
 }

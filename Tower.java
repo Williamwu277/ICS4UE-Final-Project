@@ -7,8 +7,8 @@ public abstract class Tower extends Unit implements RangedAttacker{
     protected int projectileSpeed;
     protected Projectile newProjectile;
 
-    public Tower(int teamId, int x, int y, int size, int maxHealth, int range, int damage, int attackSpeed, int projectileSize, int projectileSpeed){
-        super(teamId, x, y, size, size, maxHealth);
+    public Tower(int teamId, int x, int y, int size, int maxHealth, int range, int damage, int attackSpeed, int projectileSize, int projectileSpeed, String sprite){
+        super(teamId, x, y, size, size, maxHealth, sprite);
         this.range = range;
         this.damage = damage;
         this.attackSpeed = attackSpeed;
@@ -27,12 +27,12 @@ public abstract class Tower extends Unit implements RangedAttacker{
         }
     }
 
-    @Override
-    public ArrayList<String> draw(){
-        ArrayList<String> output = new ArrayList<String>();
-        output.add(Const.BOX_CODE + " " + this.x + " " + this.y + " " + this.width + " " + this.height + " PINK");
-        return output;
-    }
+    //@Override
+    //public ArrayList<String> draw(){
+    //    ArrayList<String> output = new ArrayList<String>();
+    //    output.add(Const.BOX_CODE + " " + this.x + " " + this.y + " " + this.width + " " + this.height + " PINK");
+    //    return output;
+    //}
 
     @Override
     public Projectile getProjectile(){

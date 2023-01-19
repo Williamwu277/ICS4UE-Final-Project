@@ -9,7 +9,7 @@ public class GameScreen implements Screen{
     private Socket clientSocket;
     private BufferedReader clientIn;
     private PrintWriter clientOut;
-    private ArrayList<String> toDraw;
+    private Queue<String> toDraw;
 
     private boolean gameOver;
     private boolean gameWon;
@@ -19,7 +19,7 @@ public class GameScreen implements Screen{
         this.clientSocket = clientSocket;
         this.clientIn = clientIn;
         this.clientOut = clientOut;
-        this.toDraw = new ArrayList<>();
+        this.toDraw = new LinkedList<>();
     }
 
     @Override
@@ -75,28 +75,49 @@ public class GameScreen implements Screen{
 
     @Override
     public void draw(Graphics g){
-        for(String nextLine: this.toDraw){
-            String[] separation = nextLine.split(" ");
-            if(Integer.parseInt(separation[0]) == Const.BOX_CODE){
-                //String[] messageData = separation[1].split(" ");
-                int x = Integer.parseInt(separation[1]);
-                int y = Integer.parseInt(separation[2]);
-                int width = Integer.parseInt(separation[3]);
-                int height = Integer.parseInt(separation[4]);
-                Color color = Const.COLORS.get(separation[5]);
+        while(!this.toDraw.isEmpty()){
+            String nextLine = this.toDraw.poll();
+            String[] separation = nextLine.split(" ", 2);
+            if(separation[0].equals(Const.BOX_CODE)){
+                String[] messageData = separation[1].split(" ");
+                int x = Integer.parseInt(messageData[0]);
+                int y = Integer.parseInt(messageData[1]);
+                int width = Integer.parseInt(messageData[2]);
+                int height = Integer.parseInt(messageData[3]);
+                Color color = Const.COLORS.get(messageData[4]);
                 g.setColor(color);
                 g.fillRect(x, y, width, height);
-            }else{
-                //String[] messageData = separation[1].split(" ", 4);
-                int x = Integer.parseInt(separation[1]);
-                int y = Integer.parseInt(separation[2]);
-                Color color = Const.COLORS.get(separation[3]);
-                String message = separation[4];
+            }else if(separation[0].equals(Const.STRING_CODE)){
+                String[] messageData = separation[1].split(" ", 5);
+                int x = Integer.parseInt(messageData[0]);
+                int y = Integer.parseInt(messageData[1]);
+                Color color = Const.COLORS.get(messageData[2]);
+                String size = messageData[3];
+                String[] messages = messageData[4].split(Const.SOCKET_NEXT_LINE);
                 g.setColor(color);
-                g.drawString(message, x, y);
+                if(size.equals("SMALL")){
+                    g.setFont(Const.SMALL_FONT);
+                }else{
+                    g.setFont(Const.LARGE_FONT);
+                }
+                for(int i=0; i<messages.length; i++){
+                    int lineWidth = g.getFontMetrics().stringWidth(messages[i]);
+                    g.drawString(messages[i], x - lineWidth / 2, y + Const.STRING_HEIGHT * i);
+                }
+            }else{
+                String[] messageData = separation[1].split(" ");
+                int x = Integer.parseInt(messageData[0]);
+                int y = Integer.parseInt(messageData[1]);
+                int width = Integer.parseInt(messageData[2]);
+                int height = Integer.parseInt(messageData[3]);
+                String rotate = messageData[4];
+                if(rotate.equals("N")){
+                    height = -height;
+                    y -= height;
+                }
+                g.drawImage(Const.IMAGES.get(separation[0]), x, y, width, height, null);
             }
         }
-        this.toDraw.clear();
     }
 
     @Override

@@ -40,7 +40,7 @@ public class Bomb extends Projectile{
             output.add(Const.BOX_CODE + " " + this.x + " " + this.y + " " + this.width + " " + this.height + " BLACK");
         }else{
             int explosionSize = this.explosionRadius * 2;
-            output.add(Const.BOX_CODE + " " + (this.x - explosionSize / 2) + " " + (this.y - explosionSize / 2) + " " + explosionSize + " " + explosionSize + " PINK");
+            output.add("Explosion " + (this.x - explosionSize / 2) + " " + (this.y - explosionSize / 2) + " " + explosionSize + " " + explosionSize + " Y");
         }
         return output;
     }

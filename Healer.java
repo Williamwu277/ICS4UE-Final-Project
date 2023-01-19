@@ -6,7 +6,7 @@ public class Healer extends Soldier{
     private static final int HEALER_PASSIVE_CHANCE = 15;
 
     public Healer(int teamId, int x, int y){
-        super(teamId, x, y, Const.BLOCK_SIZE, Const.BLOCK_SIZE, 75, 60, 10, 75, 3);
+        super(teamId, x, y, Const.BLOCK_SIZE, Const.BLOCK_SIZE, 75, 60, 10, 75, 3, "Healer");
     }
 
     @Override

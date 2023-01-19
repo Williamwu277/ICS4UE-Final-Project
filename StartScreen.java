@@ -17,8 +17,8 @@ public class StartScreen implements Screen{
 
     public StartScreen(InputListener input){
         this.input = input;
-        this.queueButton = new Button("Queue", Const.WIDTH/2-25, Const.HEIGHT/2-25, 50, 50);
-        this.inputBox = new InputBox(input, Const.WIDTH/2-50, Const.HEIGHT/2+100, 100, 50, 10);
+        this.queueButton = new Button("Queue", Const.WIDTH/2-Const.BUTTON_WIDTH/2, Const.HEIGHT/2-Const.BUTTON_HEIGHT/2, Const.BUTTON_WIDTH, Const.BUTTON_HEIGHT, "StartButton");
+        this.inputBox = new InputBox(input, Const.WIDTH/2-Const.BUTTON_WIDTH/2, Const.HEIGHT/2+Const.BUTTON_HEIGHT, Const.BUTTON_WIDTH, Const.BUTTON_HEIGHT, 10, "InputBox");
     }
 
     @Override

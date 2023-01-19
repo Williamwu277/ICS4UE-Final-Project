@@ -5,7 +5,7 @@ public class Knight extends Soldier{
     private int acceleration;
 
     public Knight(int teamId, int x, int y){
-        super(teamId, x, y, Const.BLOCK_SIZE, Const.BLOCK_SIZE*2, 150, 15, 15, 75, 1);
+        super(teamId, x, y, Const.BLOCK_SIZE, Const.BLOCK_SIZE*2, 150, 15, 15, 75, 1, "Knight");
     }
 
     @Override

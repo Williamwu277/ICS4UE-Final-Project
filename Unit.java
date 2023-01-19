@@ -9,8 +9,8 @@ public abstract class Unit extends GameObject{
     protected int attackCooldown;
     protected HealthBar healthBar;
 
-    public Unit(int teamId, int x, int y, int width, int height, int maxHealth){
-        super(teamId, x, y, width, height);
+    public Unit(int teamId, int x, int y, int width, int height, int maxHealth, String sprite){
+        super(teamId, x, y, width, height, sprite);
         this.healthBar = new HealthBar(this.width, Const.HEALTH_BAR_HEIGHT, maxHealth);
     }
 
@@ -60,6 +60,23 @@ public abstract class Unit extends GameObject{
 
     public ArrayList<String> drawHealthBar(){
         ArrayList<String> output = this.healthBar.draw(this.x, this.y);
+        return output;
+    }
+
+    @Override
+    public ArrayList<String> draw(){
+        ArrayList<String> output = new ArrayList<String>();
+        if(this.sprite != null){
+            String rotate;
+            if(this.teamId == -1 && !(this instanceof SiegeEngine) && !(this instanceof Dwelling) && !(this instanceof BombTower) && !(this instanceof Base)){
+                rotate = "N";
+            }else{
+                rotate = "Y";
+            }
+            output.add(this.sprite + " " + this.x + " " + this.y + " " + this.width + " " + this.height + " " + rotate);
+        }else{
+            output.add(Const.BOX_CODE + " " + this.x + " " + this.y + " " + this.width + " " + this.height + " PINK");
+        }
         return output;
     }
     
