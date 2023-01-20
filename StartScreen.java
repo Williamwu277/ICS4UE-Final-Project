@@ -49,6 +49,7 @@ public class StartScreen implements Screen{
 
     @Override
     public void draw(Graphics g){
+        g.drawImage(Const.IMAGES.get("Title"), 0, 0, Const.WIDTH, Const.HEIGHT, null);
         this.queueButton.draw(g);
         this.inputBox.draw(g);
     }

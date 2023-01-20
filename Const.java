@@ -169,6 +169,7 @@ public class Const {
             Const.IMAGES.put("InputBox", ImageIO.read(new File("Images/InputBox.png")));
             Const.IMAGES.put("MenuButton", ImageIO.read(new File("Images/MenuButton.png")));
             Const.IMAGES.put("StartButton", ImageIO.read(new File("Images/StartButton.png")));
+            Const.IMAGES.put("Title", ImageIO.read(new File("Images/NoNameV2.png")));
         }catch(Exception e){
             e.printStackTrace();
         }
