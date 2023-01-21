@@ -1,3 +1,4 @@
+// Class for constant values of the ArcherTower
 public class ArcherTower extends Tower{
 
     public ArcherTower(int teamId, int x, int y){

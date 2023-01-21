@@ -1,49 +1,43 @@
-import java.util.*;
-import java.awt.*;
-import java.io.*;
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.awt.Color;
 
+// class to store all the constant values
 public class Const {
     
+    // screen width and height
     public static final int WIDTH = 750;
     public static final int HEIGHT = 750;
+    // pause time between looping
     public static final int PAUSE = 15;
+    // game map height and width in terms of blocks
     public static final int MAP_WIDTH = 24;
     public static final int MAP_HEIGHT = 36;
+    // how large each block and tower is
     public static final int BLOCK_SIZE = 20;
     public static final int TOWER_SIZE = 60;
+    // health bar statistics
     public static final int HEALTH_BAR_HEIGHT = 7;
     public static final int BASE_HEALTH_BAR_HEIGHT = 30;
     public static final int BASE_HEALTH = 2500;
+    // movement statistics
     public static final int MOVEMENT_STEP_SIZE = 2;
+    // projectile and bomb statistics
     public static final int PROJECTILE_STEP_COOLDOWN = 3;
     public static final int BOMB_EXPLOSION_DURATION = 10;
+    // gold statistics
     public static final int BASE_GOLD_PRODUCTION_DELAY = 5;
     public static final int DWELLING_GOLD_PRODUCTION_DELAY = 10;
     public static final int BASE_GOLD = 1000;
+    // communication between sockets
     public static final String BOX_CODE = "1";
     public static final String STRING_CODE = "2";
     public static final String SOCKET_NEXT_LINE = "-";
+    // button statistics
     public static final int BUTTON_WIDTH = 120;
     public static final int BUTTON_HEIGHT = 50;
-    // remove later when you finally actually have a font
+    // change in y between each line of outputted strings
     public static final int STRING_HEIGHT = 15;
-    public static final String FONT_PATH = "Special_Elite/SpecialElite-Regular.ttf";
-    private static Font FONT = LOAD_FONT();
-    private static Font LOAD_FONT(){
-        try{
-            Font ft = Font.createFont(Font.TRUETYPE_FONT, new File(FONT_PATH));
-            System.out.println("OUT");
-            return ft;
-        }catch(Exception e){
-            e.printStackTrace();
-            return null;
-        }
-    };
-    public static Font SMALL_FONT = Const.FONT.deriveFont((float)12.5);
-    public static Font LARGE_FONT = Const.FONT.deriveFont((float)25.0);
-    public static Font EXTRA_LARGE_FONT = Const.FONT.deriveFont((float)100.0);
+    // Color palette
     public static final HashMap<String, Color> COLORS = new HashMap<>(){{
         put("LIGHTGRAY", Color.LIGHT_GRAY);
         put("PINK", Color.PINK);
@@ -59,9 +53,10 @@ public class Const {
         put("GREEN3", new Color(144, 238, 144));
         put("DARKGRAY", new Color(152, 153, 156));
     }};
+    // cost for each unit
     public static final HashMap<String, Integer> COSTS = new HashMap<>(){{
-        put("FootSoldier", 25);
-        put("Archer", 40);
+        put("FootSoldier", 40);
+        put("Archer", 50);
         put("Tanker", 150);
         put("Knight", 150);
         put("Healer", 75);
@@ -73,6 +68,7 @@ public class Const {
         put("BombTower", 400);
         put("BallistaTower", 500);
     }};
+    // Description for each unit within the menu bar
     public static final HashMap<String, String> UNIT_DESCRIPTION = new HashMap<>(){{
         put("FootSoldier", "Melee soldier with low health, " + Const.SOCKET_NEXT_LINE + 
         "low damage, and medium speed;" + Const.SOCKET_NEXT_LINE +
@@ -147,32 +143,8 @@ public class Const {
         "Cost: " + Const.COSTS.get("BallistaTower") + Const.SOCKET_NEXT_LINE +
         "Size: 3x3");
     }};
-    public static final HashMap<String, BufferedImage> IMAGES = new HashMap<>();
-    private Const(){}
 
-    public static void load(){
-        try{
-            Const.IMAGES.put("FootSoldier", ImageIO.read(new File("Images/FootSoldier.png")));
-            Const.IMAGES.put("Archer", ImageIO.read(new File("Images/Archer.png")));
-            Const.IMAGES.put("Tanker", ImageIO.read(new File("Images/Tanker.png")));
-            Const.IMAGES.put("Knight", ImageIO.read(new File("Images/Knight.png")));
-            Const.IMAGES.put("Healer", ImageIO.read(new File("Images/Healer.png")));
-            Const.IMAGES.put("SiegeEngine", ImageIO.read(new File("Images/SiegeEngine.png")));
-            Const.IMAGES.put("Dwelling", ImageIO.read(new File("Images/Dwelling.png")));
-            Const.IMAGES.put("ArcherTower", ImageIO.read(new File("Images/ArcherTower.png")));
-            Const.IMAGES.put("Wall", ImageIO.read(new File("Images/Wall.png")));
-            Const.IMAGES.put("CannonTower", ImageIO.read(new File("Images/CannonTower.png")));
-            Const.IMAGES.put("BombTower", ImageIO.read(new File("Images/BombTower.png")));
-            Const.IMAGES.put("BallistaTower", ImageIO.read(new File("Images/BallistaTower.png")));
-            Const.IMAGES.put("Base", ImageIO.read(new File("Images/Base.png")));
-            Const.IMAGES.put("Explosion", ImageIO.read(new File("Images/Explosion.png")));
-            Const.IMAGES.put("InputBox", ImageIO.read(new File("Images/InputBox.png")));
-            Const.IMAGES.put("MenuButton", ImageIO.read(new File("Images/MenuButton.png")));
-            Const.IMAGES.put("StartButton", ImageIO.read(new File("Images/StartButton.png")));
-            Const.IMAGES.put("Title", ImageIO.read(new File("Images/NoNameV2.png")));
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
+    // private constructor
+    private Const(){}
 
 }

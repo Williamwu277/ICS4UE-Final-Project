@@ -17,7 +17,6 @@ public class PlayerConnection {
         try{
             this.input = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
             this.output = new PrintWriter(this.socket.getOutputStream());
-            System.out.println("WHAT THE FUCK IS GOING ON");
             this.output.println("Opponent Found.");
             this.output.flush();
         }catch(Exception e){
@@ -81,7 +80,7 @@ public class PlayerConnection {
             while(in.equals("")){
                 in = this.input.readLine();
             }
-            name = in.strip();
+            name = in.trim();
         }catch(Exception e){
             e.printStackTrace();
         }

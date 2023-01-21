@@ -1,8 +1,10 @@
-import java.awt.*;
-import java.util.*;
+import java.awt.Rectangle;
+import java.util.ArrayList;
 
+// template base class for an object in the game — projectiles and units
 public abstract class GameObject {
 
+    // instance variables
     protected int teamId;
     protected int x;
     protected int y;
@@ -10,7 +12,8 @@ public abstract class GameObject {
     protected int height;
     protected Rectangle hitBox;
     protected String sprite;
-    
+
+    // constructor
     public GameObject(int teamId, int x, int y, int width, int height, String sprite){
         this.teamId = teamId;
         this.x = x;
@@ -21,10 +24,12 @@ public abstract class GameObject {
         this.sprite = sprite;
     }
 
+    // abstract methods for updating and drawing
     public abstract void update(ArrayList<Unit> gameObjects);
 
     public abstract ArrayList<String> draw();
 
+    // getters and setters
     public int getId(){
         return this.teamId;
     }

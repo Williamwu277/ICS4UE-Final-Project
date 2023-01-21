@@ -1,3 +1,4 @@
+// class for tanker unit
 public class Tanker extends Soldier{
 
     public Tanker(int teamId, int x, int y){

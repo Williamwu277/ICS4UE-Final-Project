@@ -1,3 +1,4 @@
+// Class for constant values of the ballista tower
 public class BallistaTower extends Tower{
 
     public BallistaTower(int teamId, int x, int y){

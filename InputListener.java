@@ -1,12 +1,22 @@
-import java.awt.event.*;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseListener;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.KeyEvent;
 
+// class to store and check for user input
 public class InputListener implements MouseMotionListener, MouseListener, KeyListener{
 
+    // instance variables
     private int mouseX;
     private int mouseY;
     private boolean clicked;
     private char key;
 
+    // constructor
+    public InputListener(){}
+
+    // if the mouse has moved, store the new coordinates
     public void mouseMoved(MouseEvent e){ 
         this.mouseX = e.getX();
         this.mouseY = e.getY();
@@ -16,10 +26,12 @@ public class InputListener implements MouseMotionListener, MouseListener, KeyLis
 
     public void mouseClicked(MouseEvent e){}
 
+    // if mouse pressed, update
     public void mousePressed(MouseEvent e){ 
         this.clicked = true;
     }
 
+    // if mouse let go, update
     public void mouseReleased(MouseEvent e){
         this.clicked = false;
     }
@@ -32,6 +44,7 @@ public class InputListener implements MouseMotionListener, MouseListener, KeyLis
 
     public void keyReleased (KeyEvent e) {}    
 
+    // if key typed, store the new key
     public void keyTyped (KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE){
             this.key = '\b';
@@ -40,6 +53,7 @@ public class InputListener implements MouseMotionListener, MouseListener, KeyLis
         }
     }
 
+    // getters and setters
     public int getX(){
         return this.mouseX;
     }

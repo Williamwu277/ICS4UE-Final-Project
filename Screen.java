@@ -1,5 +1,6 @@
-import java.awt.*;
+import java.awt.Graphics;
 
+// interface for different game state screens
 public interface Screen {
 
     public void update();

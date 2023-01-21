@@ -1,3 +1,4 @@
+// Class for footSoldier constants
 public class FootSoldier extends Soldier{
 
     public FootSoldier(int teamId, int x, int y){

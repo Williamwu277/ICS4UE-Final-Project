@@ -1,3 +1,4 @@
+// class for cannon tower constants
 public class CannonTower extends Tower{
 
     public CannonTower(int teamId, int x, int y){
