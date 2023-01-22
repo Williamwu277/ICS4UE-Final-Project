@@ -4,8 +4,10 @@ import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.io.IOException;
 
+// class to load in the images in the game
 public class ImageLoader {
 
+    // load in the images to a hashmap
     public static final HashMap<String, BufferedImage> IMAGES = new HashMap<>(){{
         try{
             put("FootSoldier", ImageIO.read(new File("Images/FootSoldier.png")));
@@ -31,6 +33,7 @@ public class ImageLoader {
         }
     }};
 
+    // not meant to be instantiated
     private ImageLoader(){}
 
 }
